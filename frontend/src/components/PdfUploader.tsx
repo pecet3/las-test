@@ -23,8 +23,8 @@ export const PdfUploader: React.FC = () => {
         return;
       }
 
-      if (file.size > 10 * 1024 * 1024) {
-        setError("File size should not exceed 10MB");
+      if (file.size > 500 * 1024) {
+        setError("File size should not exceed 500kb");
         return;
       }
 
@@ -65,33 +65,41 @@ export const PdfUploader: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-center">PDF File Uploader</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={handleFileChange}
-            className="w-full p-2 border rounded"
-          />
-        </div>
+    <>
+      <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          PDF File Uploader
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <input
+              type="file"
+              accept=".pdf"
+              onChange={handleFileChange}
+              className="w-full p-2 border rounded"
+            />
+          </div>
 
-        {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
+          {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
 
-        {uploadStatus && (
-          <div className="mb-4 text-green-500 text-sm">{uploadStatus}</div>
-        )}
+          {uploadStatus && (
+            <div className="mb-4 text-green-500 text-sm">{uploadStatus}</div>
+          )}
 
-        <button
-          type="submit"
-          disabled={!selectedFile}
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
-        >
-          Upload PDF
-        </button>
-      </form>
-      {magicLink !== "" ? <div>{magicLink}</div> : null}
-    </div>
+          <button
+            type="submit"
+            disabled={!selectedFile}
+            className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+          >
+            Upload PDF
+          </button>
+        </form>
+      </div>
+      {magicLink !== "" ? (
+        <a href={magicLink} className="text-2xl text-purple-300">
+          Magic Link
+        </a>
+      ) : null}
+    </>
   );
 };

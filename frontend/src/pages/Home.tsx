@@ -1,10 +1,9 @@
-import { useAppContext } from "../contexts/AppContext";
+import { Explorer } from "../components/Explorer";
 
 export const Home = () => {
-  const { user } = useAppContext();
   return (
     <main className="min-h-[68vh] flex flex-col gap-10 sm:gap-16 h-full">
-      hello {user?.name}
+      <Explorer />
     </main>
   );
 };

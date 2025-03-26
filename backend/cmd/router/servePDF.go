@@ -13,13 +13,16 @@ func (r router) servePDF(w http.ResponseWriter, req *http.Request) {
 	}
 	uuid := req.PathValue("uuid")
 	fName := req.URL.Query().Get("name")
-	logger.Debug(uuid, fName)
 	if uuid == "" || fName == "" {
 		http.Error(w, "Missing uuid or name", http.StatusBadRequest)
 		return
 	}
-	user, _ := r.app.Data.GetUserByUUID(req.Context(), uuid)
-
+	user, err := r.app.Data.GetUserByUUID(req.Context(), uuid)
+	if err != nil {
+		logger.Error(err)
+		http.Error(w, "", http.StatusBadRequest)
+		return
+	}
 	dir := r.app.PDF.GetUserUploadDir(user) + "/" + fName
 	http.ServeFile(w, req, dir)
 }

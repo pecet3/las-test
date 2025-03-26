@@ -6,7 +6,7 @@ import { Navbar } from "./components/Navbar";
 import { Exchange } from "./pages/auth/Exchange";
 import { Auth } from "./pages/auth/Auth";
 import { Upload } from "./pages/Upload";
-import { Explorer } from "./pages/Explorer";
+import { Explorer } from "./components/Explorer";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
           path="/"
           element={
             <ProtectedPage>
+              <Navbar />
               <Home />
             </ProtectedPage>
           }

@@ -9,7 +9,7 @@ import (
 	"github.com/pecet3/logger"
 )
 
-func (r router) handleUploadPDFs(w http.ResponseWriter, req *http.Request) {
+func (r router) handleUploadPDF(w http.ResponseWriter, req *http.Request) {
 	u, err := r.app.Auth.GetContextUser(req)
 	if err != nil {
 		logger.Error(err)

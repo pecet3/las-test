@@ -22,6 +22,7 @@ func Run(
 		app: app,
 	}
 
-	app.Srv.Handle(POST, r.app.Auth.Authorize(r.handleUploadPDFs))
+	app.Srv.Handle(POST, r.app.Auth.Authorize(r.handleUploadPDF))
 	app.Srv.Handle(GET, r.app.Auth.Authorize(r.handleGetUserPDFsDto))
+	app.Srv.Handle(DELETE+"/{uuid}", r.app.Auth.Authorize(r.handleDeletePDF))
 }

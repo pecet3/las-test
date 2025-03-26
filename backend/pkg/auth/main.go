@@ -11,7 +11,7 @@ import (
 
 const (
 	POST_SUSPEND_PUNISH_DURATION = time.Second * 10
-	POST_SUSPEND_DURATION        = time.Second * 1
+	POST_SUSPEND_DURATION        = time.Second * 0
 	AUTH_SESSION_EXPIRY          = time.Hour * 168 * 1 // one week
 )
 
