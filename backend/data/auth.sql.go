@@ -76,20 +76,20 @@ INSERT INTO users (
         uuid,
         name,
         email,
-        salt,
+        folder_uuid,
         is_draft,
         created_at
     )
 VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-RETURNING id, uuid, name, email, salt, is_draft, created_at
+RETURNING id, uuid, name, email, folder_uuid, is_draft, created_at
 `
 
 type AddUserParams struct {
-	Uuid    string         `json:"uuid"`
-	Name    string         `json:"name"`
-	Email   sql.NullString `json:"email"`
-	Salt    string         `json:"salt"`
-	IsDraft bool           `json:"is_draft"`
+	Uuid       string         `json:"uuid"`
+	Name       string         `json:"name"`
+	Email      sql.NullString `json:"email"`
+	FolderUuid string         `json:"folder_uuid"`
+	IsDraft    bool           `json:"is_draft"`
 }
 
 func (q *Queries) AddUser(ctx context.Context, arg AddUserParams) (User, error) {
@@ -97,7 +97,7 @@ func (q *Queries) AddUser(ctx context.Context, arg AddUserParams) (User, error) 
 		arg.Uuid,
 		arg.Name,
 		arg.Email,
-		arg.Salt,
+		arg.FolderUuid,
 		arg.IsDraft,
 	)
 	var i User
@@ -106,7 +106,7 @@ func (q *Queries) AddUser(ctx context.Context, arg AddUserParams) (User, error) 
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)
@@ -124,7 +124,7 @@ func (q *Queries) DeleteUserByID(ctx context.Context, id int64) error {
 }
 
 const getAllUsers = `-- name: GetAllUsers :many
-SELECT id, uuid, name, email, salt, is_draft, created_at
+SELECT id, uuid, name, email, folder_uuid, is_draft, created_at
 FROM users
 `
 
@@ -142,7 +142,7 @@ func (q *Queries) GetAllUsers(ctx context.Context) ([]User, error) {
 			&i.Uuid,
 			&i.Name,
 			&i.Email,
-			&i.Salt,
+			&i.FolderUuid,
 			&i.IsDraft,
 			&i.CreatedAt,
 		); err != nil {
@@ -210,7 +210,7 @@ func (q *Queries) GetSessionByToken(ctx context.Context, token string) (Session,
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, uuid, name, email, salt, is_draft, created_at
+SELECT id, uuid, name, email, folder_uuid, is_draft, created_at
 from users
 WHERE email = ?
 `
@@ -223,7 +223,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email sql.NullString) (Use
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)
@@ -231,7 +231,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email sql.NullString) (Use
 }
 
 const getUserByID = `-- name: GetUserByID :one
-SELECT id, uuid, name, email, salt, is_draft, created_at
+SELECT id, uuid, name, email, folder_uuid, is_draft, created_at
 from users
 WHERE id = ?
 `
@@ -244,7 +244,7 @@ func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)
@@ -252,7 +252,7 @@ func (q *Queries) GetUserByID(ctx context.Context, id int64) (User, error) {
 }
 
 const getUserByUUID = `-- name: GetUserByUUID :one
-SELECT id, uuid, name, email, salt, is_draft, created_at
+SELECT id, uuid, name, email, folder_uuid, is_draft, created_at
 from users
 WHERE uuid = ?
 `
@@ -265,7 +265,7 @@ func (q *Queries) GetUserByUUID(ctx context.Context, uuid string) (User, error) 
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)
@@ -308,7 +308,7 @@ const updateUserEmail = `-- name: UpdateUserEmail :one
 UPDATE users
 SET email = ?
 WHERE id = ?
-RETURNING id, uuid, name, email, salt, is_draft, created_at
+RETURNING id, uuid, name, email, folder_uuid, is_draft, created_at
 `
 
 type UpdateUserEmailParams struct {
@@ -324,7 +324,7 @@ func (q *Queries) UpdateUserEmail(ctx context.Context, arg UpdateUserEmailParams
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)
@@ -335,7 +335,7 @@ const updateUserIsDraft = `-- name: UpdateUserIsDraft :one
 UPDATE users
 SET is_draft = ?
 WHERE id = ?
-RETURNING id, uuid, name, email, salt, is_draft, created_at
+RETURNING id, uuid, name, email, folder_uuid, is_draft, created_at
 `
 
 type UpdateUserIsDraftParams struct {
@@ -351,7 +351,7 @@ func (q *Queries) UpdateUserIsDraft(ctx context.Context, arg UpdateUserIsDraftPa
 		&i.Uuid,
 		&i.Name,
 		&i.Email,
-		&i.Salt,
+		&i.FolderUuid,
 		&i.IsDraft,
 		&i.CreatedAt,
 	)

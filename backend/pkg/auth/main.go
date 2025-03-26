@@ -7,7 +7,6 @@ import (
 	"github.com/pecet3/las-test-pdf/data"
 	"github.com/pecet3/las-test-pdf/pkg/auth/login"
 	"github.com/pecet3/las-test-pdf/pkg/auth/register"
-	"github.com/pecet3/logger"
 )
 
 const (
@@ -63,6 +62,5 @@ func (a *Auth) AddRole(name string, checkRole CheckRole) {
 type testMailer struct{}
 
 func (testMailer) Send(ctx context.Context, to, code, userName string) error {
-	logger.Debug("test email send", to, code, userName)
 	return nil
 }

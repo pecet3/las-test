@@ -6,7 +6,7 @@ INSERT INTO users (
         uuid,
         name,
         email,
-        salt,
+        folder_uuid,
         is_draft,
         created_at
     )

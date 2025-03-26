@@ -9,6 +9,15 @@ import (
 	"time"
 )
 
+type Pdf struct {
+	ID         int64        `json:"id"`
+	Uuid       string       `json:"uuid"`
+	UserID     int64        `json:"user_id"`
+	Name       string       `json:"name"`
+	CreatedAt  sql.NullTime `json:"created_at"`
+	LastOpenAt sql.NullTime `json:"last_open_at"`
+}
+
 type Session struct {
 	ID                int64        `json:"id"`
 	UserID            int64        `json:"user_id"`
@@ -24,11 +33,11 @@ type Session struct {
 }
 
 type User struct {
-	ID        int64          `json:"id"`
-	Uuid      string         `json:"uuid"`
-	Name      string         `json:"name"`
-	Email     sql.NullString `json:"email"`
-	Salt      string         `json:"salt"`
-	IsDraft   bool           `json:"is_draft"`
-	CreatedAt sql.NullTime   `json:"created_at"`
+	ID         int64          `json:"id"`
+	Uuid       string         `json:"uuid"`
+	Name       string         `json:"name"`
+	Email      sql.NullString `json:"email"`
+	FolderUuid string         `json:"folder_uuid"`
+	IsDraft    bool           `json:"is_draft"`
+	CreatedAt  sql.NullTime   `json:"created_at"`
 }

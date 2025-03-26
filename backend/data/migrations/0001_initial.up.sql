@@ -4,7 +4,7 @@ create table if not exists users (
     uuid text not null,
     name text not null not null,
     email text unique,
-    salt text not null,
+    folder_uuid text not null,
     is_draft bool not null,
     created_at timestamp default current_timestamp
 );
@@ -23,3 +23,13 @@ create table if not exists sessions (
     is_expired bool default false,
     foreign key (user_id) references users(id)
 );
+
+create table if not exists pdfs (
+    id integer primary key autoincrement,
+    uuid text not null,
+    user_id integer not null,
+    name text not null,
+    created_at timestamp default current_timestamp,
+    last_open_at timestamp default current_timestamp,
+    foreign key (user_id) references users(id)
+)

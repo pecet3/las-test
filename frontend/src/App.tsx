@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Navbar } from "./components/Navbar";
 import { Exchange } from "./pages/auth/Exchange";
 import { Auth } from "./pages/auth/Auth";
+import { Upload } from "./pages/Upload";
 
 function App() {
   return (
@@ -18,7 +19,15 @@ function App() {
             </ProtectedPage>
           }
         />
-        <Route path="/upload" element={<ProtectedPage>test</ProtectedPage>} />
+        <Route
+          path="/upload"
+          element={
+            <ProtectedPage>
+              <Navbar />
+              <Upload />
+            </ProtectedPage>
+          }
+        />
         <Route
           path="/auth"
           element={

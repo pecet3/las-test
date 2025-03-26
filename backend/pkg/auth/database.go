@@ -11,9 +11,9 @@ import (
 func (a Auth) AddUserTablesDb(name, email string) (*data.User, error) {
 	ctx := context.Background()
 	u, err := a.d.AddUser(ctx, data.AddUserParams{
-		Salt: uuid.NewString(),
-		Uuid: uuid.NewString(),
-		Name: name,
+		FolderUuid: uuid.NewString(),
+		Uuid:       uuid.NewString(),
+		Name:       name,
 		Email: sql.NullString{
 			String: email,
 			Valid:  true,

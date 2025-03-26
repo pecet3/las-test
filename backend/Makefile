@@ -6,6 +6,6 @@ rm:
 
 
 reset_db:
-	rm -rf store.db 
-	touch store.db
-	sqlite3 store.db < ./data/migrations/0001_initial.up.sql
+	rm -rf ./database/*
+	touch ./database/store.db
+	sqlite3 ./database/store.db < ./data/migrations/0001_initial.up.sql

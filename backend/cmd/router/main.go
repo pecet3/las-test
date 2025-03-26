@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/pecet3/las-test-pdf/cmd/repos"
 	authRouter "github.com/pecet3/las-test-pdf/cmd/router/auth"
+	pdfsRouter "github.com/pecet3/las-test-pdf/cmd/router/pdfs"
 )
 
 const (
@@ -12,8 +13,7 @@ const (
 	PUT    = "PUT " + PREFIX
 	DELETE = "DELETE " + PREFIX
 
-	IMAGES_DIR = "./cmd/images"
-	VIEW_DIR   = "./cmd/view"
+	VIEW_DIR = "./cmd/view"
 )
 
 type router struct {
@@ -28,7 +28,7 @@ func Run(
 		app: app,
 	}
 	authRouter.Run(app)
-
+	pdfsRouter.Run(app)
 	app.Srv.HandleFunc("/", r.handleView)
 
 }
