@@ -24,6 +24,7 @@ Used packages and technologies:
 - My own logger package
 - My own passwordless auth package, but it is directly in pkg directory, not as dependency
 
+You can find migrations and queries in /backend/data
 ## Frontend - Design
 
 Frontend is not fancy as I said, but there are essentials features such as:
