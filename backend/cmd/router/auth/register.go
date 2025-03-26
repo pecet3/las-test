@@ -12,6 +12,7 @@ import (
 )
 
 func (r router) handleRegister(w http.ResponseWriter, req *http.Request) {
+	logger.Debug()
 	dto := &dtos.Register{}
 	if err := r.app.Dto.Get(req, dto); err != nil {
 		logger.Error(err)

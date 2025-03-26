@@ -9,19 +9,18 @@ import (
 type RegisterMailer struct{}
 
 func (RegisterMailer) Send(ctx context.Context, to, code, userName string) error {
-	subject := "🎲 Quizex 🎲 Welcome! (noreply)"
+	subject := "LAS-PDF Welcome! (noreply)"
 	body := `
     <html>
     	<body>
     		<h2>Hello ` + userName + `,</h2>
 				<p>We are happy You joined us!</p>
-				<p>We wish you good luck and many good games</p>
 				</br>
     			<p>This is a magic code:</p>
 				<h1>
 					<i>` + code + `</i>
 				</h1>
-				<i>Please, copy and then paste it to the Quizex App.</i>
+				<i>Please, copy and then paste it to the App.</i>
     	</body>
     </html>
     `

@@ -20,6 +20,7 @@ func NewApp() *App {
 	db := data.NewSQLite()
 	data := data.New(db)
 	auth := auth.New(data)
+
 	return &App{
 		Srv:  mux,
 		Data: data,

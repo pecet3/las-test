@@ -1,6 +1,9 @@
 package router
 
-import "github.com/pecet3/las-test-pdf/cmd/repos"
+import (
+	"github.com/pecet3/las-test-pdf/cmd/repos"
+	authRouter "github.com/pecet3/las-test-pdf/cmd/router/auth"
+)
 
 const (
 	PREFIX = "/api"
@@ -24,6 +27,7 @@ func Run(
 	r := router{
 		app: app,
 	}
+	authRouter.Run(app)
 
 	app.Srv.HandleFunc("/", r.handleView)
 

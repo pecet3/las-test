@@ -49,6 +49,7 @@ func New(d *data.Queries) *Auth {
 	// a.Mailers["register"] = register.RegisterMailer{}
 	// a.Mailers["login"] = login.LoginMailer{}
 
+	// Test Mailer doesn't send mails
 	a.Mailers["register"] = testMailer{}
 	a.Mailers["login"] = testMailer{}
 

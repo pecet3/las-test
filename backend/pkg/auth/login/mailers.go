@@ -9,7 +9,7 @@ import (
 type LoginMailer struct{}
 
 func (LoginMailer) Send(ctx context.Context, to, code, userName string) error {
-	subject := "🎲 Quizex 🎲 Magic Code (noreply)"
+	subject := "LAS-PDF Magic Code (noreply)"
 	body := `
     <html>
     	<body>
@@ -18,7 +18,7 @@ func (LoginMailer) Send(ctx context.Context, to, code, userName string) error {
 				<h1>
 					<i>` + code + `</i>
 				</h1>
-				<i>Please, copy and then paste it to the Quizex App.</i>
+				<i>Please, copy and then paste it to the App.</i>
     	</body>
     </html>
     `
