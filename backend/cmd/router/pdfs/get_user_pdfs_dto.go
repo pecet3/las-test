@@ -7,7 +7,7 @@ import (
 	"github.com/pecet3/logger"
 )
 
-func (r router) handleGetUserPdfsDto(w http.ResponseWriter, req *http.Request) {
+func (r router) handleGetUserPDFsDto(w http.ResponseWriter, req *http.Request) {
 	u, err := r.app.Auth.GetContextUser(req)
 	if err != nil {
 		logger.Error(err)
@@ -22,11 +22,16 @@ func (r router) handleGetUserPdfsDto(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	dto := []dtos.PDF{}
+	var dto []dtos.PDF
 
 	for _, pdf := range pdfs {
-		dto = append(dto, *pdf.ToDto(r.app.Data))
+		url := r.app.PDF.GetPdfURL(u, pdf.Name)
+		dto = append(dto, *pdf.ToDto(r.app.Data, url))
 	}
 
-	w.WriteHeader(http.StatusCreated)
+	if err := r.app.Dto.Send(w, dto); err != nil {
+		logger.Error(err)
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
 }

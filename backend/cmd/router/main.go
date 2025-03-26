@@ -30,5 +30,5 @@ func Run(
 	authRouter.Run(app)
 	pdfsRouter.Run(app)
 	app.Srv.HandleFunc("/", r.handleView)
-
+	app.Srv.HandleFunc("/uploads/{uuid}/", r.servePDF)
 }

@@ -1,6 +1,7 @@
 package pdf
 
 import (
+	"errors"
 	"io"
 	"net/http"
 	"os"
@@ -9,14 +10,17 @@ import (
 	"github.com/pecet3/las-test-pdf/data"
 )
 
-const MAX_KB = 500
+const MAX_KB = 500 * 1024
 
 func (p PDF) SavePdfFromRequest(req *http.Request, u data.User) (string, error) {
-	if err := req.ParseMultipartForm(MAX_KB << 10); err != nil {
-
-		return "", nil
+	if err := req.ParseMultipartForm(MAX_KB); err != nil {
+		return "", err
 	}
 	file, handler, err := req.FormFile("file")
+
+	if handler.Size < MAX_KB {
+		return "", errors.New("too large file")
+	}
 	if err != nil {
 		return "", err
 	}
@@ -26,7 +30,7 @@ func (p PDF) SavePdfFromRequest(req *http.Request, u data.User) (string, error) 
 		return "", err
 	}
 
-	uploadDir := getUserUploadDir(u)
+	uploadDir := p.GetUserUploadDir(u)
 
 	if err := os.MkdirAll(uploadDir, os.ModePerm); err != nil {
 		return "", err

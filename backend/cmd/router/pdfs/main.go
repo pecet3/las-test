@@ -12,8 +12,6 @@ const (
 	POST   = "POST " + PREFIX
 	PUT    = "PUT " + PREFIX
 	DELETE = "DELETE " + PREFIX
-
-	UPLOADS_DIR = "./uploads"
 )
 
 func Run(
@@ -25,4 +23,5 @@ func Run(
 	}
 
 	app.Srv.Handle(POST, r.app.Auth.Authorize(r.handleUploadPDFs))
+	app.Srv.Handle(GET, r.app.Auth.Authorize(r.handleGetUserPDFsDto))
 }

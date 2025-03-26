@@ -1,9 +1,15 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
+type MagicLinkResponse = {
+  url: string;
+};
+
 export const PdfUploader: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  const [magicLink, setMagicLink] = useState("");
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUploadStatus("");
@@ -47,7 +53,8 @@ export const PdfUploader: React.FC = () => {
         const errorText = await response.text();
         throw new Error(errorText || "File upload failed");
       }
-
+      const data: MagicLinkResponse = await response.json();
+      setMagicLink(data.url);
       setUploadStatus("File uploaded successfully");
       setError("");
     } catch (err) {
@@ -84,6 +91,7 @@ export const PdfUploader: React.FC = () => {
           Upload PDF
         </button>
       </form>
+      {magicLink !== "" ? <div>{magicLink}</div> : null}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/pecet3/las-test-pdf/data"
+	"github.com/pecet3/las-test-pdf/data/dtos"
 	"github.com/pecet3/logger"
 )
 
@@ -29,6 +30,12 @@ func (r router) handleUploadPDFs(w http.ResponseWriter, req *http.Request) {
 		Name:   fName,
 	})
 	url := r.app.PDF.GetPdfURL(u, fName)
-	logger.Debug(url)
-	w.WriteHeader(http.StatusCreated)
+	dto := dtos.PDFurl{
+		Url: url,
+	}
+	if err := r.app.Dto.Send(w, dto); err != nil {
+		logger.Error(err)
+		http.Error(w, "", http.StatusInternalServerError)
+		return
+	}
 }

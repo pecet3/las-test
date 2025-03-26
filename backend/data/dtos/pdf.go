@@ -20,3 +20,14 @@ func (p PDF) Send(w io.Writer) error {
 	}
 	return nil
 }
+
+type PDFurl struct {
+	Url string `json:"url"`
+}
+
+func (p PDFurl) Send(w io.Writer) error {
+	if err := json.NewEncoder(w).Encode(&p); err != nil {
+		return err
+	}
+	return nil
+}
