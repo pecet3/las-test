@@ -61,12 +61,7 @@ func (r *EmailChange) Validate(v *validator.Validate) error {
 type User struct {
 	UUID      string    `json:"uuid"`
 	Name      string    `json:"name"`
-	ImageUrl  string    `json:"image_url"`
-	IsDraft   bool      `json:"is_draft"`
 	CreatedAt time.Time `json:"created_at"`
-	Exp       float64   `json:"exp"`
-	Level     int       `json:"level"`
-	Progress  float64   `json:"progress"`
 }
 
 func (u User) Send(w io.Writer) error {

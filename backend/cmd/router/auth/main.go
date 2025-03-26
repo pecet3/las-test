@@ -27,9 +27,6 @@ func Run(
 	app.Srv.HandleFunc(POST+"/login", r.handleLogin)
 	app.Srv.HandleFunc(POST+"/login/exchange", r.handleLoginExchange)
 
-	app.Srv.Handle(POST+"/change-email", r.app.Auth.Authorize(r.handleChangeEmail))
-	app.Srv.Handle(POST+"/change-email/exchange", r.app.Auth.Authorize(r.handleChangeEmailExchange))
-
 	app.Srv.Handle(GET+"/logout", r.app.Auth.Authorize(r.handleLogout))
 	app.Srv.Handle(GET+"/ping", r.app.Auth.Authorize(r.handlePing))
 }
