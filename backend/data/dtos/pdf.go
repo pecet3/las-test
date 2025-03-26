@@ -11,6 +11,7 @@ type PDF struct {
 	Name       string    `json:"name"`
 	CreatedAt  time.Time `json:"created_at"`
 	LastOpenAt time.Time `json:"last_open_at"`
+	URL        string    `json:"url"`
 }
 
 func (p PDF) Send(w io.Writer) error {

@@ -12,6 +12,8 @@ const (
 	POST   = "POST " + PREFIX
 	PUT    = "PUT " + PREFIX
 	DELETE = "DELETE " + PREFIX
+
+	UPLOADS_DIR = "./uploads"
 )
 
 func Run(
